@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<!--    <meta http-equiv="refresh" content="30">-->
+<!--    <title>RIGs statistic</title>-->
+    <link type="text/css" href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet" />
+</head>
+<body>
+<h2 id="stats" align="center">RIGs statistic</h2>
+<table id=main_stats border="1" align="left">
+    <caption>RIGs statistic</caption>
+    <tr><th>Name</th><th>State</th><th>Uptime</th><th>GPUs pwr, W</th><th>GPU average hashrate, MH/s</th></tr>
+    {% for rig in current_stats %}
+        {% if rig.get("rig_state") == "ConnectionError" %}
+            <tr bgcolor=#F08080 ><td><a href="https://{{ rig.get("rig_name") }}.example.com" target="_blank">{{ rig.get("rig_name") }}</a></td><td>{{ rig.get("rig_state") }}</td><td>{{ rig.get("rig_uptime") }}</td><td>{{ rig.get("rig_pwr_usage") }}</td><td>{{ rig.get("gpu_av_hr") }}</td></tr>
+        {% else %}
+<!--            <tr><td><a href="https://{{ rig.get("rig_name") }}.example.com" target="_blank">{{ rig.get("rig_name") }}</a></td><td>{{ rig.get("rig_state") }}</td><td>{{ rig.get("rig_uptime") }}</td><td>{{ rig.get("rig_pwr_usage") }}</td><td>{{ rig.get("gpu_av_hr") }}</td></tr>-->
+            <tr><td><a href="http://{{ rig.get("rig_name") }}:3333" target="rig_stats">{{ rig.get("rig_name") }}</a></td><td>{{ rig.get("rig_state") }}</td><td>{{ rig.get("rig_uptime") }}</td><td>{{ rig.get("rig_pwr_usage") }}</td><td>{{ rig.get("gpu_av_hr") }}</td></tr>
+        {% endif %}
+    {% endfor %}
+</table>
+<iframe title="Iframe Example" name=rig_stats src="http://mh01:3333" width="1000" height="700" frameborder="0">
+    <title>RIGs statistic</title>
+</iframe>
+</body>
+</html>

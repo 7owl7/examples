@@ -1,4 +1,5 @@
-## Задание:
+# Пример кода terraform\ansible
+## Задача:
 - Написать terraform-файл, который создает два VPS. Оба VPS должны быть настроены с помощью ansible, используя local-exec provisioner.
 - На обоих VPS установить nginx.
 - Настроить nginx на первом VPS как load balancer и проксировать все запросы через proxy_pass + upstream на второй VPS.

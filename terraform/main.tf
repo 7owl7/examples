@@ -82,23 +82,7 @@ resource "null_resource" "nginx-lb_provision" {
   ]
 }
 
-# resource "null_resource" "nginx-app_provision" {
-#   provisioner "remote-exec" {
-#     inline = ["echo VM started"]
-#     connection {
-#       type        = "ssh"
-#       host        = digitalocean_droplet.app.ipv4_address
-#       user        = "root"
-#       private_key = file(pathexpand(var.student_ssh_private_key))
-#     }
-#   }
-#   provisioner "local-exec" {
-#     command = "ansible-playbook  ansible/pb_nginx-app.yml"
-#   }
-#   depends_on = [
-#     local_file.ansible_inventory,
-#   ]
-# }
+
 resource "aws_route53_record" "lb_domain" {
   zone_id = data.aws_route53_zone.selected.id
   name    = "${var.student_email}.${var.rebrain_domain}"

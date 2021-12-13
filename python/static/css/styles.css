@@ -1,0 +1,16 @@
+html, body {
+	font-family: 'Arial';
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+    background: #8FBC8F;
+}
+table {
+    border: 1px solid #a52a2a; /* Рамка вокруг таблицы */
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+}
+td, th {
+    padding: 3px; /* Поля вокруг содержимого ячейки */
+    text-align: center;
+}
