@@ -1,0 +1,17 @@
+lb:
+    hosts:
+        nginx-lb:
+            ansible_host: ${lb_ipv4_address}
+            ansible_user: ${ansible_user}
+            ansible_ssh_private_key_file: ${admin_ssh_pr_key}
+            private_ip: ${lb_ipv4_address_private}
+app:
+    hosts:
+%{ for index, public_ip in app_ipv4_address ~}
+        nginx-app-${index+1}:
+            ansible_host: ${public_ip}          
+            private_ip: ${app_ipv4_address_private[index]}
+%{ endfor ~}
+    vars: 
+        ansible_user: ${ansible_user}
+        ansible_ssh_private_key_file: ${admin_ssh_pr_key}

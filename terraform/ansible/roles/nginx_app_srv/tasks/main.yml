@@ -1,0 +1,22 @@
+---
+- name: Create virtualhost web static content directory
+  file:
+    path: /var/www/{{ item }}
+    state: directory
+    mode: '0755'
+  loop: "{{ nginx_virtual_hosts|flatten(levels=1) }}"
+
+- name: Create virtual host configuration file from template
+  template:
+    src: virtual_host.conf.j2
+    dest: /etc/nginx/conf.d/{{ item }}.conf
+    mode: '0644'
+  loop: "{{ nginx_virtual_hosts|flatten(levels=1) }}"
+  notify: nginx_reload
+
+- name: Create virtual host default index.html from template
+  template:
+    src: index.html.j2
+    dest: /var/www/{{ item }}/index.html
+    mode: '0644'
+  loop: "{{ nginx_virtual_hosts|flatten(levels=1) }}"

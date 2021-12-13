@@ -1,0 +1,13 @@
+student_ssh_pubkey      = ""
+module_name             = "devops"
+student_email           = ""
+student_ssh_pubkey_name = ""
+student_ssh_private_key = ""
+do_region               = "nyc1"
+do_droplet_size         = "s-1vcpu-1gb"
+do_droplet_lb_name      = "nginx-lb"
+do_droplet_app_name     = "nginx-app"
+inventory_file          = "ansible_inventory.yml"
+inventory_tmpl          = "ansible_inventory.tmpl"
+ansible_user            = "root"
+

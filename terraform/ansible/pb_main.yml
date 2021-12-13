@@ -1,0 +1,24 @@
+---
+- name: Deploy nginx load balancer
+  hosts: lb
+  become: yes
+  become_user: root
+  vars:
+    nginx_virtual_hosts:
+    - sergachevoleg-at-gmail1.devops.rebrain.srwx.net
+    app_servers: "{{ groups['app'] }}"
+  roles:
+  - role: nginx_install
+  - role: letsencrypt
+  - role: nginx_lb_srv
+
+- name: Deploy nginx application servers
+  hosts: app
+  become: yes
+  become_user: root
+  vars:
+    nginx_virtual_hosts:
+    - sergachevoleg-at-gmail1.devops.rebrain.srwx.net
+  roles:
+  - role: nginx_install
+  - role: nginx_app_srv

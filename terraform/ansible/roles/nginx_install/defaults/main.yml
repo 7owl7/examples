@@ -1,0 +1,7 @@
+nginx_version: 1.14.0-0ubuntu1.9
+nginx_events_worker_connections: 768
+nginx_http_keepalive_timeout: 65
+nginx_http_types_hash_max_size: 4096
+nginx_http_server_names_hash_bucket_size: 128
+nginx_access_log: /var/log/nginx/access.log
+nginx_error_log: /var/log/nginx/error.log

@@ -1,0 +1,32 @@
+---
+- name: Install letsencrypt packages
+  apt:
+    name:
+      - letsencrypt
+      - python3-certbot-nginx
+    state: present
+
+- name: Letsencrypt cert generation
+  shell: "certbot certonly  --webroot -w {{ nginx_default_web_root }} --agree-tos -d {{ item }}  -m  {{ user_email }}"
+  args:
+    creates: /etc/letsencrypt/live/{{ item }}
+  loop: "{{ nginx_virtual_hosts|flatten(levels=1) }}"
+
+- name: Download ssl-dhparams.pem
+  get_url:
+    url: https://ssl-config.mozilla.org/ffdhe2048.txt
+    dest: /etc/letsencrypt/ssl-dhparams.pem
+    mode: '0440'
+
+- name: Remove default certbot renewal cronjob file
+  file:
+    path: /etc/cron.d/certbot
+    state: absent
+  notify: cron_restart
+
+- name: Add letsencrypt cronjob for cert renewal
+  cron:
+    name: letsencrypt_{{ item }}_renew
+    special_time: daily
+    job: certbot renew -cert-name {{ item }} --authenticator webroot --webroot-path /var/www/{{ item }} --deploy-hook "systemctl reload nginx"
+  loop: "{{ nginx_virtual_hosts|flatten(levels=1) }}"

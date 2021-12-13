@@ -1,0 +1,6 @@
+---
+nginx_default_web_root: /var/www/html
+user_email: sergachevoleg@gmail.com
+nginx_virtual_hosts:
+- sergachevoleg-at-gmailcom-1.devops.rebrain.srwx.net
+- sergachevoleg-at-gmailcom-2.devops.rebrain.srwx.net
